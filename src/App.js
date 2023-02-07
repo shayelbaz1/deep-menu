@@ -1,25 +1,35 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import { menu } from './data/Menu.js'
 
-function App() {
+function NavBar({menu}) {
+  return <nav id="primary_nav_wrap">
+    <Menu items={menu} />
+  </nav>
+}
+
+function Menu({ items }) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ul>
+      {items.map((item) => {
+        return (
+          <li key={item.title}>
+            <a href="#">{item.title}</a>
+            {item.children && <Menu items={item.children} />}
+          </li>
+        );
+      })}
+    </ul>
   );
 }
+
+const App = () => {
+  return (
+    <div>
+      <h1>Simple Pure CSS Drop Down Menu</h1>
+      <NavBar menu={menu} />
+    </div>
+  );
+};
 
 export default App;
